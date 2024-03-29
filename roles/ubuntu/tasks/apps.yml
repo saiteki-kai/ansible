@@ -1,1 +1,88 @@
-# - name: Brave
+---
+# Snap packages
+
+- name: Install snap packages
+  become: true
+  community.general.snap:
+    name:
+      - loupe
+      - spotify
+      - firmware-updater
+      - telegram-desktop
+
+- name: Remove Firefox snap
+  become: true
+  community.general.snap:
+    state: "absent"
+    name: firefox
+
+# Ubuntu packages
+
+- name: Install Ubuntu packages
+  become: true
+  ansible.builtin.apt:
+    force_apt_get: true
+    name:
+      - stacer
+      - timeshift
+      - vlc
+      - krita
+      # - anki
+      # - cryptomator
+
+- name: Remove firefox package
+  ansible.builtin.apt:
+    state: "absent"
+    name: firefox
+
+# Deb packages
+
+- name: Install Brave
+  become: true
+  block:
+    - name: Download keyring
+      ansible.builtin.get_url:
+        url: https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+        dest: /usr/share/keyrings/brave-browser-archive-keyring.gpg
+        mode: "0644"
+
+    - name: Add repository
+      ansible.builtin.apt_repository:
+        repo: "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"
+        state: "present"
+
+    - name: Install with Apt
+      ansible.builtin.apt:
+        force_apt_get: true
+        update_cache: true
+        name: brave-browser
+
+- name: Deb Packages
+  become: true
+  block:
+    - name: Install Megasync
+      ansible.builtin.apt:
+        force_apt_get: true
+        update_cache: true
+        state: present
+        deb: https://mega.nz/linux/repo/xUbuntu_23.10/amd64/megasync-xUbuntu_23.10_amd64.deb
+
+    - name: Install Megasync Nautilus
+      ansible.builtin.apt:
+        force_apt_get: true
+        state: present
+        deb: https://mega.nz/linux/repo/xUbuntu_23.10/amd64/nautilus-megasync-xUbuntu_23.10_amd64.deb
+
+    - name: Install Obsidian
+      ansible.builtin.apt:
+        force_apt_get: true
+        state: present
+        deb: >
+          $(wget -q -O - https://api.github.com/repos/obsidianmd/obsidian-releases/releases/latest
+          | jq -r '.assets[]
+          | select(.name | contains ("deb"))
+          | .browser_download_url')
+
+# TODO:
+# - code
+# - onlyoffice

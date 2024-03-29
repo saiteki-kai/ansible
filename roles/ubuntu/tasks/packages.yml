@@ -21,6 +21,8 @@
           - tlp
           - tlp-rdw
           - upower
+          - ufw
+      tags: minimal
 
     - name: Install tools
       become: true
@@ -44,10 +46,13 @@
           # - exa
           - bat
           - neofetch
+          - dpkg
           - git
           - zsh
           - vim
           - tmux
+          - jq
+          - sqlite3
 
     - name: Setup Python
       become: true
