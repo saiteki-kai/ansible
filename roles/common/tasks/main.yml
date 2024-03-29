@@ -1,0 +1,9 @@
+---
+- name: SSH keys
+  ansible.builtin.import_tasks: tasks/ssh.yml
+
+- name: Git config
+  ansible.builtin.import_tasks: tasks/git.yml
+
+- name: ZSH config
+  ansible.builtin.import_tasks: tasks/zsh.yml

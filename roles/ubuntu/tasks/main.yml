@@ -1,0 +1,12 @@
+---
+- name: Install packages
+  ansible.builtin.import_tasks: tasks/core.yml
+
+- name: Manage services
+  ansible.builtin.import_tasks: tasks/services.yml
+
+- name: Install Gnome related packages
+  ansible.builtin.import_tasks: tasks/gnome.yml
+
+- name: Install applications
+  ansible.builtin.import_tasks: tasks/apps.yml

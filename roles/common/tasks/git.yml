@@ -1,0 +1,14 @@
+---
+- name: Setup git configs
+  block:
+    - name: Setup git email
+      community.general.git_config:
+        name: user.email
+        scope: global
+        value: giuseppe.magazu@gmail.com
+
+    - name: Setup git name
+      community.general.git_config:
+        name: user.name
+        scope: global
+        value: saiteki-kai

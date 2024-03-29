@@ -1,0 +1,69 @@
+---
+- name: Install packages
+  block:
+    - name: Update and upgrade apt packages
+      become: true
+      ansible.builtin.apt:
+        force_apt_get: true
+        update_cache: true
+        upgrade: true
+
+    - name: Install core packages
+      become: true
+      ansible.builtin.apt:
+        force_apt_get: true
+        package:
+          - build-essential
+          - dkms
+          - efibootmgr
+          - os-prober
+          - preload
+          - tlp
+          - tlp-rdw
+          - upower
+
+    - name: Install tools
+      become: true
+      ansible.builtin.apt:
+        force_apt_get: true
+        package:
+          - curl
+          - wget
+          - xclip
+          - findutils
+          - fzf
+          - lm-sensors
+          - ncdu
+          - gzip
+          - unzip
+          - grep
+          - ripgrep
+          - htop
+          - nala
+          - tree
+          # - exa
+          - bat
+          - neofetch
+          - git
+          - zsh
+          - vim
+          - tmux
+
+    - name: Setup Python
+      become: true
+      ansible.builtin.apt:
+        force_apt_get: true
+        package:
+          - python3
+          - python3-dev
+          - python3-pip
+          - python3-virtualenv
+
+    - name: Install fonts
+      become: true
+      ansible.builtin.apt:
+        force_apt_get: true
+        package:
+          - fonts-firacode
+          - fonts-noto
+          - fonts-noto-cjk

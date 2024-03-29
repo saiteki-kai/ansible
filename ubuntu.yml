@@ -1,0 +1,7 @@
+---
+- name: Ubuntu Setup
+  hosts: localhost
+
+  roles:
+    - common
+    - ubuntu
