@@ -74,15 +74,20 @@
         deb: https://mega.nz/linux/repo/xUbuntu_23.10/amd64/nautilus-megasync-xUbuntu_23.10_amd64.deb
 
     - name: Install Obsidian
-      ansible.builtin.apt:
-        force_apt_get: true
-        state: present
-        deb: >
-          $(wget -q -O - https://api.github.com/repos/obsidianmd/obsidian-releases/releases/latest
-          | jq -r '.assets[]
-          | select(.name | contains ("deb"))
-          | .browser_download_url')
+      block:
+        - name: Get latest Obsidian release URL
+          ansible.builtin.shell: >
+            wget -q -O - https://api.github.com/repos/obsidianmd/obsidian-releases/releases/latest 
+            | jq -r '.assets[] 
+            | select(.name | contains ("deb")) 
+            | .browser_download_url'
+          register: obsidian_deb_url
 
+        - name: Install Obsidian
+          ansible.builtin.apt:
+            force_apt_get: true
+            state: present
+            deb: "{{ obsidian_deb_url.stdout }}"
 # TODO:
 # - code
 # - onlyoffice
