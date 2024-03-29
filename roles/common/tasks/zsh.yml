@@ -1,5 +1,6 @@
 ---
 - name: Setup Oh-My-Zsh
+  become: true
   become_user: giuseppe
   block:
     - name: Install Zsh
