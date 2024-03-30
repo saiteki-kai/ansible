@@ -1,6 +1,4 @@
 ---
-# Snap packages
-
 - name: Install snap packages
   become: true
   community.general.snap:
@@ -16,8 +14,6 @@
     state: absent
     name: firefox
 
-# Ubuntu packages
-
 - name: Install Ubuntu packages
   become: true
   ansible.builtin.apt:
@@ -32,8 +28,6 @@
   ansible.builtin.apt:
     state: absent
     name: firefox
-
-# Deb packages
 
 - name: Install Brave
   become: true
