@@ -1,3 +1,4 @@
+---
 - name: Install Neovim from source
   tags: neovim
   block:
