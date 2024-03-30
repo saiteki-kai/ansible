@@ -13,7 +13,6 @@
       ansible.builtin.apt:
         force_apt_get: true
         package:
-          - build-essential
           - dkms
           - efibootmgr
           - os-prober
@@ -23,6 +22,17 @@
           - upower
           - ufw
       tags: minimal
+
+    - name: Install build tools
+      become: true
+      ansible.builtin.apt:
+        force_apt_get: true
+        package:
+          - build-essential
+          - ninja-build
+          - cmake
+          - gettext
+      tags: neovim
 
     - name: Install tools
       become: true

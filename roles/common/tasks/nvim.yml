@@ -1,1 +1,24 @@
-# build from source
+- name: Install Neovim from source
+  tags: neovim
+  block:
+    - name: Clone Neovim
+      ansible.builtin.git:
+        repo: https://github.com/neovim/neovim
+        dest: $HOME/neovim
+        version: stable
+
+    - name: Build Neovim
+      ansible.builtin.shell:
+        cmd: cd $HOME/neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo
+      changed_when: true
+
+    - name: Install Neovim
+      become: true
+      ansible.builtin.shell:
+        cmd: cd $HOME/neovim && sudo make install
+      changed_when: true
+
+    - name: Remove Neovim source
+      ansible.builtin.shell:
+        cmd: rm -r $HOME/neovim
+      changed_when: true
