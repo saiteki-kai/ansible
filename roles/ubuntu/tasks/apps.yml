@@ -76,7 +76,7 @@
 
     - name: Install Obsidian
       block:
-        - name: Get latest Obsidian release URL
+        - name: Get latest Obsidian release URL # noqa: command-instead-of-module # noqa: risky-shell-pipe
           ansible.builtin.shell: >
             wget -q -O - https://api.github.com/repos/obsidianmd/obsidian-releases/releases/latest
             | jq -r '.assets[]
