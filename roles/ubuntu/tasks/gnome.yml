@@ -9,5 +9,10 @@
       - chrome-gnome-shell
       - dconf-editor
 
+- name: Set default terminal
+  community.general.alternatives:
+    name: x-terminal-emulator
+    path: /usr/bin/kitty
+
 # - name: Install Gnome extensions
 #   become: true

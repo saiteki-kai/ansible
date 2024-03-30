@@ -53,6 +53,7 @@
           - tmux
           - jq
           - sqlite3
+          - kitty
 
     - name: Setup Python
       become: true
