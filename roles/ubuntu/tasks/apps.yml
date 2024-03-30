@@ -27,8 +27,6 @@
       - timeshift
       - vlc
       - krita
-      # - anki
-      # - cryptomator
 
 - name: Remove firefox package
   ansible.builtin.apt:
@@ -49,7 +47,6 @@
     - name: Add repository
       ansible.builtin.apt_repository:
         repo: deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main
-        state: present
 
     - name: Install with Apt
       ansible.builtin.apt:
@@ -64,14 +61,24 @@
       ansible.builtin.apt:
         force_apt_get: true
         update_cache: true
-        state: present
         deb: https://mega.nz/linux/repo/xUbuntu_23.10/amd64/megasync-xUbuntu_23.10_amd64.deb
 
     - name: Install Megasync Nautilus
       ansible.builtin.apt:
         force_apt_get: true
-        state: present
         deb: https://mega.nz/linux/repo/xUbuntu_23.10/amd64/nautilus-megasync-xUbuntu_23.10_amd64.deb
+
+    - name: Install Cryptomator
+      block:
+        - name: Add Cryptomator repository
+          ansible.builtin.apt_repository:
+            repo: ppa:sebastian-stenzel/cryptomator
+
+        - name: Install Cryptomator
+          ansible.builtin.apt:
+            force_apt_get: true
+            update_cache: true
+            name: cryptomator
 
     - name: Install Obsidian
       block:
@@ -87,8 +94,8 @@
         - name: Install Obsidian
           ansible.builtin.apt:
             force_apt_get: true
-            state: present
             deb: "{{ obsidian_deb_url.stdout }}"
 # TODO:
 # - code
 # - onlyoffice
+# - anki
