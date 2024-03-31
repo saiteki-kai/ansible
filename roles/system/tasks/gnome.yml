@@ -16,7 +16,7 @@
   become_user: "{{ user }}"
   community.general.dconf:
     key: /org/gnome/nautilus/preferences/default-folder-viewer
-    value: "list-view"
+    value: list-view
 
 - name: Gnome | Settings | Enable night light
   become: true
