@@ -1,0 +1,12 @@
+---
+- name: Git | Set user.email
+  community.general.git_config:
+    name: user.email
+    scope: global
+    value: giuseppe.magazu@gmail.com
+
+- name: Git | Set user.name
+  community.general.git_config:
+    name: user.name
+    scope: global
+    value: saiteki-kai

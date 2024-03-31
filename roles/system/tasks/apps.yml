@@ -1,0 +1,84 @@
+---
+- name: Packages | Snap | Install loupe, spotify, telegram-desktop, firmware-updater
+  tags: snap
+  community.general.snap:
+    name:
+      - loupe
+      - spotify
+      - telegram-desktop
+      - firmware-updater
+
+- name: Packages | Snap | Remove firefox
+  tags: snap
+  community.general.snap:
+    state: absent
+    name: firefox
+
+- name: Packages | Apt | Install stacer, timeshift, vlc, krita
+  ansible.builtin.apt:
+    force_apt_get: true
+    name:
+      - stacer
+      - timeshift
+      - vlc
+      - krita
+
+- name: Packages | Apt | Remove firefox
+  ansible.builtin.apt:
+    state: absent
+    name: firefox
+
+- name: Packages | Apt | Download brave keyring
+  ansible.builtin.get_url:
+    url: https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+    dest: /usr/share/keyrings/brave-browser-archive-keyring.gpg
+    mode: "0644"
+
+- name: Packages | Apt | Add brave repository
+  ansible.builtin.apt_repository:
+    repo: deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main
+
+- name: Packages | Apt | Install brave
+  ansible.builtin.apt:
+    force_apt_get: true
+    update_cache: true
+    name: brave-browser
+
+- name: Packages | Apt | Install megasync
+  ansible.builtin.apt:
+    force_apt_get: true
+    update_cache: true
+    deb: https://mega.nz/linux/repo/xUbuntu_23.10/amd64/megasync-xUbuntu_23.10_amd64.deb
+
+- name: Packages | Apt | Install megasync nautilus
+  ansible.builtin.apt:
+    force_apt_get: true
+    deb: https://mega.nz/linux/repo/xUbuntu_23.10/amd64/nautilus-megasync-xUbuntu_23.10_amd64.deb
+
+- name: Packages | Apt | Add cryptomator ppa repository
+  ansible.builtin.apt_repository:
+    repo: ppa:sebastian-stenzel/cryptomator
+
+- name: Packages | Apt | Install cryptomator
+  ansible.builtin.apt:
+    force_apt_get: true
+    update_cache: true
+    name: cryptomator
+
+- name: Packages | Apt | Get latest obsidian release url # noqa: command-instead-of-module # noqa: risky-shell-pipe
+  ansible.builtin.shell: >
+    wget -q -O - https://api.github.com/repos/obsidianmd/obsidian-releases/releases/latest
+    | jq -r '.assets[]
+    | select(.name | contains ("deb"))
+    | .browser_download_url'
+  changed_when: false
+  register: obsidian_deb_url
+
+- name: Packages | Apt | Install obsidian
+  ansible.builtin.apt:
+    force_apt_get: true
+    deb: "{{ obsidian_deb_url.stdout }}"
+# TODO:
+# - code
+# - onlyoffice
+# - anki

@@ -1,0 +1,59 @@
+---
+- name: Gnome | Alternatives | Set kitty as default terminal
+  community.general.alternatives:
+    name: x-terminal-emulator
+    path: /usr/bin/kitty
+
+- name: Gnome | Nautilus | Set sort directories first
+  become: true
+  become_user: "{{ user }}"
+  community.general.dconf:
+    key: /org/gtk/gtk4/settings/file-chooser/sort-directories-first
+    value: "true"
+
+- name: Gnome | Nautilus | Set default view to list
+  become: true
+  become_user: "{{ user }}"
+  community.general.dconf:
+    key: /org/gnome/nautilus/preferences/default-folder-viewer
+    value: "list-view"
+
+- name: Gnome | Settings | Enable night light
+  become: true
+  become_user: "{{ user }}"
+  community.general.dconf:
+    key: /org/gnome/settings-daemon/plugins/color/night-light-enabled
+    value: "true"
+
+- name: Gnome | Settings | Set night light temperature
+  become: true
+  become_user: "{{ user }}"
+  community.general.dconf:
+    key: /org/gnome/settings-daemon/plugins/color/night-light-temperature
+    value: "3700"
+
+- name: Gnome | Settings | Set night schedule from
+  become: true
+  become_user: "{{ user }}"
+  community.general.dconf:
+    key: /org/gnome/settings-daemon/plugins/color/night-light-schedule-from
+    value: "21"
+
+- name: Gnome | Settings | Set night schedule to
+  become: true
+  become_user: "{{ user }}"
+  community.general.dconf:
+    key: /org/gnome/settings-daemon/plugins/color/night-light-schedule-to
+    value: "6"
+
+- name: Gnome | Extensions | Install packages
+  ansible.builtin.apt:
+    package:
+      - gnome-tweaks
+      - gnome-shell-extensions
+      - gnome-shell-extension-manager
+      - chrome-gnome-shell
+      - dconf-editor
+
+# - name: Gnome | Extensions | Install
+#   become_user: "{{ user }}"

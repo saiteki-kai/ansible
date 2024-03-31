@@ -1,12 +1,20 @@
 ---
 - name: SSH keys
+  become: true
+  become_user: "{{ user }}"
   ansible.builtin.import_tasks: tasks/ssh.yml
 
 - name: Git config
+  become: true
+  become_user: "{{ user }}"
   ansible.builtin.import_tasks: tasks/git.yml
 
 - name: ZSH config
+  become: true
+  become_user: "{{ user }}"
   ansible.builtin.import_tasks: tasks/zsh.yml
 
 - name: Install Neovim
+  become: true
+  become_user: "{{ user }}"
   ansible.builtin.import_tasks: tasks/nvim.yml

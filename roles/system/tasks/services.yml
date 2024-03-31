@@ -1,0 +1,29 @@
+---
+- name: Services | Disable ModemManager service
+  ansible.builtin.systemd_service:
+    name: ModemManager.service
+    enabled: false
+
+- name: Services | Disable NetworkManager-wait-online service
+  ansible.builtin.systemd_service:
+    name: NetworkManager-wait-online.service
+    enabled: false
+
+- name: Firewall | Enable firewall
+  community.general.ufw:
+    state: enabled
+
+- name: Firewall | Deny all incoming traffic
+  community.general.ufw:
+    default: deny
+    direction: incoming
+
+- name: Firewall | Allow all outgoing traffic
+  community.general.ufw:
+    default: allow
+    direction: outgoing
+
+- name: Systemd | Set swappiness to 10
+  ansible.posix.sysctl:
+    name: vm.swappiness
+    value: "10"
