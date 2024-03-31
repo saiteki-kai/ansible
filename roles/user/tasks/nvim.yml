@@ -1,25 +1,26 @@
 ---
-- name: Install Neovim from source
+- name: Neovim | Clone repository
   tags: neovim
-  block:
-    - name: Clone Neovim
-      ansible.builtin.git:
-        repo: https://github.com/neovim/neovim
-        dest: "{{ lookup('env', 'HOME') }}/neovim"
-        version: stable
+  ansible.builtin.git:
+    repo: https://github.com/neovim/neovim
+    dest: "{{ lookup('env', 'HOME') }}/neovim"
+    version: stable
 
-    - name: Build Neovim
-      ansible.builtin.shell:
-        cmd: cd "{{ lookup('env', 'HOME') }}/neovim" && make CMAKE_BUILD_TYPE=RelWithDebInfo
-      changed_when: true
+- name: Neovim | Build from source
+  tags: neovim
+  ansible.builtin.shell:
+    cmd: cd "{{ lookup('env', 'HOME') }}/neovim" && make CMAKE_BUILD_TYPE=RelWithDebInfo
+  changed_when: true
 
-    - name: Install Neovim
-      become: true
-      ansible.builtin.shell:
-        cmd: cd "{{ lookup('env', 'HOME') }}/neovim" && sudo make install
-      changed_when: true
+- name: Neovim | Install from source
+  tags: neovim
+  become: true
+  ansible.builtin.shell:
+    cmd: cd "{{ lookup('env', 'HOME') }}/neovim" && sudo make install
+  changed_when: true
 
-    - name: Remove Neovim source
-      ansible.builtin.command:
-        cmd: rm -r "{{ lookup('env', 'HOME') }}/neovim"
-      changed_when: true
+- name: Neovim | Remove source directory
+  tags: neovim
+  ansible.builtin.command:
+    cmd: rm -r "{{ lookup('env', 'HOME') }}/neovim"
+  changed_when: true
