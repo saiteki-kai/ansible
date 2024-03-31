@@ -1,30 +1,26 @@
 ---
 - name: SSH | Check ssh directory
-  tags: ssh
   ansible.builtin.file:
-    dest: "{{ ssh_key | dirname }}"
+    dest: "{{ dest_ssh_key | dirname }}"
     mode: "0700"
     state: directory
 
 - name: SSH | Install ssh key
-  tags: ssh
   ansible.builtin.copy:
-    src: "{{ ssh_key }}"
-    dest: "{{ lookup('env', 'HOME') ~ '/' ~ ssh_key }}"
+    src: "{{ src_ssh_key }}"
+    dest: "{{ dest_ssh_key }}"
     mode: "0600"
 
 - name: SSH | Install ssh key public
-  tags: ssh
   ansible.builtin.copy:
-    src: "{{ ssh_key }}.pub"
-    dest: "{{ lookup('env', 'HOME') ~ '/' ~ ssh_key ~ '.pub' }}"
+    src: "{{ src_ssh_key }}.pub"
+    dest: "{{ dest_ssh_key }}.pub"
     mode: "0644"
 
 - name: SSH | Set authorized key took from file
-  tags: ssh
   ansible.posix.authorized_key:
     user: "{{ user }}"
     state: present
-    key: "{{ lookup('file', lookup('env', 'HOME') ~ '/' ~ ssh_key ~ '.pub') }}"
+    key: "{{ lookup('file', dest_ssh_key ~ '.pub') }}"
   with_fileglob:
-    - "{{ lookup('env', 'HOME') ~ '/' ~ ssh_key | dirname }}/*.pub"
+    - "{{ dest_ssh_key | dirname }}/*.pub"

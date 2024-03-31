@@ -5,7 +5,6 @@
 
   vars:
     user: giuseppe
-    ssh_key: .ssh/id_rsa
 
   roles:
     - system

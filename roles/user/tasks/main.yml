@@ -2,19 +2,27 @@
 - name: SSH keys
   become: true
   become_user: "{{ user }}"
+  vars:
+    ssh_key: id_ed25519
+    src_ssh_key: ./files/ssh_github/{{ ssh_key }}
+    dest_ssh_key: "{{ lookup('env', 'HOME') ~ '/.ssh/' ~ ssh_key }}"
+  tags: ssh, git
   ansible.builtin.import_tasks: tasks/ssh.yml
 
 - name: Git config
   become: true
   become_user: "{{ user }}"
+  tags: git
   ansible.builtin.import_tasks: tasks/git.yml
 
 - name: ZSH config
   become: true
   become_user: "{{ user }}"
+  tags: zsh
   ansible.builtin.import_tasks: tasks/zsh.yml
 
 - name: Install Neovim
   become: true
   become_user: "{{ user }}"
+  tags: neovim
   ansible.builtin.import_tasks: tasks/nvim.yml
