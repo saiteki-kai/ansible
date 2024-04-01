@@ -42,3 +42,9 @@
   become_user: "{{ user }}"
   tags: neovim
   ansible.builtin.import_tasks: tasks/nvim.yml
+
+- name: Install dotfiles
+  become: true
+  become_user: "{{ user }}"
+  tags: dotfiles
+  ansible.builtin.import_tasks: tasks/dotfiles.yml

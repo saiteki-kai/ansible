@@ -1,0 +1,26 @@
+---
+- name: Dotfiles | Install stow
+  become: true
+  become_user: root
+  ansible.builtin.apt:
+    force_apt_get: true
+    name: stow
+
+- name: Dotfiles | Install dotfiles
+  vars:
+    dotfiles_repo: https://github.com/saiteki-kai/.dotfiles
+  ansible.builtin.git:
+    repo: "{{ dotfiles_repo }}"
+    dest: "{{ lookup('env', 'HOME') }}/.dotfiles"
+    version: master
+
+- name: Dotfiles | Link dotfiles
+  ansible.builtin.shell:
+    cmd: cd "{{ lookup('env', 'HOME') }}/.dotfiles" && stow -D {{ item.dir }} && stow {{ item.dir }}
+  with_items:
+    - dir: nvim
+    - dir: zsh
+    - dir: tmux
+    - dir: kitty
+    - dir: bin
+  changed_when: true
