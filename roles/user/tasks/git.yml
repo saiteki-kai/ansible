@@ -10,3 +10,19 @@
     name: user.name
     scope: global
     value: saiteki-kai
+
+- name: Git | Check if gpg key is present
+  ansible.builtin.shell:
+    cmd: |
+      set -o pipefail
+      gpg --list-keys | grep {{ gpg_key_id }}
+    executable: /bin/bash
+  register: key_present
+  changed_when: false
+
+- name: Git | Set commit.gpgsign to true
+  community.general.git_config:
+    name: commit.gpgsign
+    scope: global
+    value: true
+  when: key_present

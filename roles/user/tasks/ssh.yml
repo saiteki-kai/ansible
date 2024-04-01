@@ -5,17 +5,18 @@
     mode: "0700"
     state: directory
 
-- name: SSH | Install ssh key
+- name: SSH | Install the ssh keys
   ansible.builtin.copy:
-    src: "{{ src_ssh_key }}"
-    dest: "{{ dest_ssh_key }}"
-    mode: "0600"
-
-- name: SSH | Install ssh key public
-  ansible.builtin.copy:
-    src: "{{ src_ssh_key }}.pub"
-    dest: "{{ dest_ssh_key }}.pub"
-    mode: "0644"
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode }}"
+  with_items:
+    - src: "{{ src_ssh_key }}"
+      dest: "{{ dest_ssh_key }}"
+      mode: "0600"
+    - src: "{{ src_ssh_key }}.pub"
+      dest: "{{ dest_ssh_key }}.pub"
+      mode: "0644"
 
 - name: SSH | Set authorized key took from file
   ansible.posix.authorized_key:

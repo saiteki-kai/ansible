@@ -17,6 +17,9 @@
       - tlp-rdw
       - upower
       - ufw
+      - apt-transport-https
+      - ca-certificates
+      - gnupg-agent
   tags: minimal
 
 - name: Packages | Install build tools
@@ -47,7 +50,7 @@
       - htop
       - nala
       - tree
-      # - exa
+      - exa
       - bat
       - neofetch
       - dpkg

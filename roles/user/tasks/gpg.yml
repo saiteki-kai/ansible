@@ -1,0 +1,41 @@
+---
+- name: GPG | Create the temp directory for gpg keys
+  ansible.builtin.file:
+    dest: "{{ dest_gpg_dir }}"
+    mode: "0700"
+    state: directory
+
+- name: GPG | Copy temporary gpg keys
+  ansible.builtin.copy:
+    src: "{{ src_gpg_dir ~ '/' ~ item.src }}"
+    dest: "{{ dest_gpg_dir ~ '/' ~ item.dest }}"
+    mode: "{{ item.mode }}"
+  with_items:
+    - src: private.asc
+      dest: private.asc
+      mode: "0600"
+    - src: public.asc
+      dest: public.asc
+      mode: "0644"
+
+- name: GPG | Import the gpg private key
+  ansible.builtin.shell:
+    cmd: |
+      set -o pipefail
+      echo {{ gpg_passphrase }} | gpg --batch --yes --passphrase-fd 0 --import {{ dest_gpg_dir }}/private.asc
+    executable: /bin/bash
+  changed_when: true
+
+- name: GPG | Import the gpg public key
+  ansible.builtin.shell:
+    cmd: |
+      set -o pipefail
+      echo {{ gpg_passphrase }} | gpg --batch --yes --passphrase-fd 0 --import {{ dest_gpg_dir }}/public.asc
+    executable: /bin/bash
+  changed_when: true
+
+- name: GPG | Remove the temporary gpg keys
+  ansible.builtin.file:
+    path: "{{ dest_gpg_dir }}"
+    state: absent
+  changed_when: true
