@@ -16,7 +16,8 @@
   become_user: "{{ user }}"
   community.general.dconf:
     key: /org/gnome/nautilus/preferences/default-folder-viewer
-    value: list-view
+    value: "'list-view'"
+  failed_when: false
 
 - name: Gnome | Settings | Enable night light
   become: true
@@ -30,7 +31,7 @@
   become_user: "{{ user }}"
   community.general.dconf:
     key: /org/gnome/settings-daemon/plugins/color/night-light-temperature
-    value: "3700"
+    value: "uint32 3700"
 
 - name: Gnome | Settings | Set night schedule from
   become: true
