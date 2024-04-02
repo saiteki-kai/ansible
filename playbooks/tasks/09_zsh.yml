@@ -1,9 +1,4 @@
 ---
-- name: Zsh | Install
-  ansible.builtin.apt:
-    force_apt_get: true
-    name: zsh
-
 - name: Zsh | Set zsh as default shell
   ansible.builtin.shell:
     cmd: chsh -s $(which zsh)

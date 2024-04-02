@@ -1,0 +1,66 @@
+---
+- name: Laptop Ubuntu Setup
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars:
+    user: giuseppe
+
+    ssh_key: id_ed25519
+    src_ssh_key: ./files/ssh_github/{{ ssh_key }}
+    dest_ssh_key: "{{ lookup('env', 'HOME') ~ '/.ssh/' ~ ssh_key }}"
+
+    src_gpg_dir: ./files/gpg_github
+    dest_gpg_dir: "{{ lookup('env', 'HOME') ~ '/.gpg_tmp' }}"
+
+  vars_files:
+    - ./vars/gpg_vars.yml
+
+  pre_tasks:
+    - name: Load vault variables
+      ansible.builtin.include_vars:
+        file: ./vars/vault.yml
+
+  tasks:
+    - name: System tasks
+      become: true
+      block:
+        - name: Install packages
+          ansible.builtin.import_tasks: tasks/01_packages.yml
+
+        - name: Setup firewall
+          ansible.builtin.import_tasks: tasks/02_ufw.yml
+
+        - name: Systemd settings
+          ansible.builtin.import_tasks: tasks/03_systemd.yml
+
+        - name: Install Gnome related packages
+          ansible.builtin.import_tasks: tasks/04_gnome.yml
+
+        - name: Install applications
+          ansible.builtin.import_tasks: tasks/05_apps.yml
+
+    - name: User tasks
+      become: true
+      become_user: "{{ user }}"
+      block:
+        - name: SSH keys
+          no_log: true
+          ansible.builtin.import_tasks: tasks/06_ssh.yml
+
+        - name: GPG keys
+          no_log: true
+          ansible.builtin.import_tasks: tasks/07_gpg.yml
+
+        - name: Git config
+          ansible.builtin.import_tasks: tasks/08_git.yml
+
+        - name: ZSH config
+          ansible.builtin.import_tasks: tasks/09_zsh.yml
+
+        - name: Install Neovim
+          ansible.builtin.import_tasks: tasks/10_nvim.yml
+
+        - name: Install dotfiles
+          ansible.builtin.import_tasks: tasks/11_dotfiles.yml

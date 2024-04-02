@@ -1,0 +1,3 @@
+---
+gpg_passphrase: "{{ vault_gpg_passphrase }}"
+gpg_key_id: "{{ vault_gpg_key_id }}"
