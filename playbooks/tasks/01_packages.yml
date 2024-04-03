@@ -66,10 +66,10 @@
       - python3-psutil
       - python3-virtualenv
 
-- name: Packages | Install fonts (firacode)
+- name: Packages | Install fonts (firacode, noto, noto-cjk)
   ansible.builtin.apt:
     force_apt_get: true
     package:
       - fonts-firacode
-      # - fonts-noto
-      # - fonts-noto-cjk
+      - fonts-noto
+      - fonts-noto-cjk
