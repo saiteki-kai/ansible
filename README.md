@@ -2,7 +2,7 @@
 
 This Ansible playbook simplifies and automates the setup and configuration of my personal Ubuntu laptop.
 
-The installation process includes core packages, utility tools like curl, fzf, exa, and bat, along with essential applications such as the web browser, VLC, Spotify, and Telegram. Additionally, it involves configuring of SSH and GPG keys that are encrypted with Ansible Vault, configuring Oh-My-Zsh, installing Neovim from source, and setting up my [dotfiles](https://github.com/saiteki-kai/.dotfiles).
+The installation process includes core packages, utility tools like curl, fzf, exa, and bat, along with essential applications such as the web browser, VLC, Spotify, and Telegram. Additionally, it involves configuring of SSH and GPG keys that are encrypted with Ansible Vault, configuring Oh-My-Zsh, installing Neovim from source, and setting up my [dotfiles](https://github.com/saiteki-kai/.dotfiles). Specifically for gnome, it also setup gnome shell extensions, default dconf settings, and keybindings.
 
 ## Install
 
