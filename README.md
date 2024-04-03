@@ -12,19 +12,22 @@ Install ansible and run the playbook:
 sudo apt install ansible
 ```
 
+Clone the repository:
+
 ```bash
-ansible-playbook playbooks/laptop.yml --ask-vault-pass --ask-become-pass
+git clone https://github.com/saiteki-kai/ansible.git
+cd ansible/
 ```
 
-Some tasks have tags that can be used to filter the playbook. For example, `ansible-playbook playbooks/laptop.yml --tags minimal` will only run the tasks tagged as `minimal`. Similarly, tags can also be used to exclude tasks with the `--skip-tags` option.
+Create a vault password file `~/.vault_pass` in the root directory or use the `--ask-vault-pass` flag to pass the vault password.
 
-## TODO
+Finally, run the install script:
 
-- [ ] Fetch and install the latest vscode release
-- [ ] Set keybindings (Open the terminal, workspaces, etc)
-- [ ] Install Gnome extensions
-- [ ] Change the default DNS
-- [ ] Rust, Nodejs, Latex
+```bash
+./install.sh
+```
+
+Some tasks have tags that can be used to filter the playbook. For example, `./install.sh --tags minimal` will only run the tasks tagged as `minimal`. Similarly, tags can also be used to exclude tasks with the `--skip-tags` option.
 
 ## Keys Encryption
 
