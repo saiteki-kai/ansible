@@ -1,11 +1,8 @@
-# Ansible Playbook
+# Personal Laptop Configuration with Ansible
 
-Ansible playbook for my setup on Ubuntu.
+This Ansible playbook simplifies and automates the setup and configuration of my personal Ubuntu laptop.
 
-## Requirements
-
-- Ubuntu 23.10
-- Ansible
+The installation process includes core packages, utility tools like curl, fzf, exa, and bat, along with essential applications such as the web browser, VLC, Spotify, and Telegram. Additionally, it involves configuring of SSH and GPG keys that are encrypted with Ansible Vault, configuring Oh-My-Zsh, installing Neovim from source, and setting up my [dotfiles](https://github.com/saiteki-kai/.dotfiles).
 
 ## Install
 
@@ -19,12 +16,15 @@ sudo apt install ansible
 ansible-playbook playbooks/laptop.yml --ask-vault-pass --ask-become-pass
 ```
 
+Some tasks have tags that can be used to filter the playbook. For example, `ansible-playbook playbooks/laptop.yml --tags minimal` will only run the tasks tagged as `minimal`. Similarly, tags can also be used to exclude tasks with the `--skip-tags` option.
+
 ## TODO
 
-- [ ] Fetch latest vscode release
-- [ ] Keybindings (Open the terminal, workspaces, etc)
-- [ ] Gnome Extensions
-- [ ] DNS
+- [ ] Fetch and install the latest vscode release
+- [ ] Set keybindings (Open the terminal, workspaces, etc)
+- [ ] Install Gnome extensions
+- [ ] Change the default DNS
+- [ ] Rust, Nodejs, Latex
 
 ## Keys Encryption
 
