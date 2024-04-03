@@ -7,14 +7,15 @@
   vars:
     user: giuseppe
 
-    dotfiles_repo: "git@github.com:saiteki-kai/.dotfiles.git"
-
     ssh_key: id_ed25519
     src_ssh_key: ./files/ssh_github/{{ ssh_key }}
     dest_ssh_key: "{{ lookup('env', 'HOME') ~ '/.ssh/' ~ ssh_key }}"
 
     src_gpg_dir: ./files/gpg_github
     dest_gpg_dir: "{{ lookup('env', 'HOME') ~ '/.gpg_tmp' }}"
+
+    dotfiles_repo: https://github.com/saiteki-kai/.dotfiles.git
+    dotfiles_repo_ssh: git@github.com:saiteki-kai/.dotfiles.git
 
   vars_files:
     - ./vars/gpg_vars.yml

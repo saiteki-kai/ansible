@@ -12,16 +12,20 @@
     dest: "{{ lookup('env', 'HOME') }}/.dotfiles"
     recursive: true
     update: true
-    accept_hostkey: true
     version: master
 
 - name: Dotfiles | Link dotfiles
   ansible.builtin.shell:
-    cmd: cd "{{ lookup('env', 'HOME') }}/.dotfiles" && stow -D {{ item.dir }} && stow {{ item.dir }}
+    cmd: cd "{{ lookup('env', 'HOME') }}/.dotfiles" && stow --adopt {{ item.dir }}
   with_items:
     - dir: nvim
     - dir: zsh
     - dir: tmux
     - dir: kitty
     - dir: bin
+  changed_when: true
+
+- name: Dotfiles | Update the remote
+  ansible.builtin.shell:
+    cmd: cd ~/.dotfiles && git remote remove origin && git remote add origin {{ dotfiles_repo_ssh }}
   changed_when: true
