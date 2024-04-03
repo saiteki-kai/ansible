@@ -6,10 +6,10 @@ The installation process includes core packages, utility tools like curl, fzf, e
 
 ## Install
 
-Install ansible and run the playbook:
+Install ansible and git, then run the playbook:
 
 ```bash
-sudo apt install ansible
+sudo apt install git ansible
 ```
 
 Clone the repository:
@@ -20,7 +20,6 @@ cd ansible/
 ```
 
 Create a vault password file `~/.vault_pass` in the root directory or use the `--ask-vault-pass` flag to pass the vault password.
-
 Finally, run the install script:
 
 ```bash
