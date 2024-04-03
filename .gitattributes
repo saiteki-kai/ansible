@@ -2,4 +2,5 @@
 *.yml linguist-language=YAML
 *.yaml linguist-detectable=true
 *.yaml linguist-language=YAML
-playbooks/files/* linguist-detectable=false
+*.asc linguist-detectable=false
+*.pub linguist-detectable=false
