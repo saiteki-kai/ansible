@@ -32,7 +32,7 @@
       - cmake
       - gettext
 
-- name: Packages | Install utility tools (curl, wget, xclip, fzf, ripgrep, ncdu, exa, bat, lm-sensors, htop, unzip, neofetch, nala, kitty, vim, tmux)
+- name: Packages | Install utility tools (curl, wget, xclip, fzf, ripgrep, ncdu, eza, bat, lm-sensors, htop, unzip, neofetch, nala, kitty, vim, tmux)
   tags: minimal
   ansible.builtin.apt:
     force_apt_get: true
@@ -45,7 +45,7 @@
       - fzf
       - ripgrep
       - ncdu
-      - exa
+      - eza
       - bat
       - lm-sensors
       - htop
