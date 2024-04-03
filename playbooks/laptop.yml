@@ -7,6 +7,8 @@
   vars:
     user: giuseppe
 
+    dotfiles_repo: "git@github.com:saiteki-kai/.dotfiles.git"
+
     ssh_key: id_ed25519
     src_ssh_key: ./files/ssh_github/{{ ssh_key }}
     dest_ssh_key: "{{ lookup('env', 'HOME') ~ '/.ssh/' ~ ssh_key }}"
@@ -16,11 +18,7 @@
 
   vars_files:
     - ./vars/gpg_vars.yml
-
-  pre_tasks:
-    - name: Load vault variables
-      ansible.builtin.include_vars:
-        file: ./vars/vault.yml
+    - ./vars/gpg_vault.yml
 
   tasks:
     - name: System tasks

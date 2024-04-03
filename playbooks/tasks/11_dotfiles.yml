@@ -7,11 +7,12 @@
     name: stow
 
 - name: Dotfiles | Install dotfiles
-  vars:
-    dotfiles_repo: https://github.com/saiteki-kai/.dotfiles
   ansible.builtin.git:
     repo: "{{ dotfiles_repo }}"
     dest: "{{ lookup('env', 'HOME') }}/.dotfiles"
+    recursive: true
+    update: true
+    accept_hostkey: true
     version: master
 
 - name: Dotfiles | Link dotfiles

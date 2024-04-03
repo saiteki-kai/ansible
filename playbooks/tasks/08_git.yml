@@ -26,3 +26,10 @@
     scope: global
     value: true
   when: key_present
+
+- name: Git | Set commit.signingkey
+  community.general.git_config:
+    name: user.signingkey
+    scope: global
+    value: "{{ gpg_key_id }}"
+  when: key_present
