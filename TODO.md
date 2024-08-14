@@ -1,7 +1,18 @@
 # TODO
 
-- [ ] Fetch and install the latest vscode release
+## Softwares
+
+- [x] Fetch and install the latest vscode release
+- [ ] Anki
+- [ ] Onlyoffice
+
+## Settings
+
 - [ ] Set keybindings (Open the terminal, workspaces, etc)
-- [ ] Install Gnome extensions
+- [ ] Gnome extensions
 - [ ] Change the default DNS
-- [ ] Rust, Nodejs, Latex
+
+## Tools
+
+- [x] Rust, Nodejs
+- [ ] Latex
