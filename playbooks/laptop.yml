@@ -63,3 +63,7 @@
 
         - name: Install dotfiles
           ansible.builtin.import_tasks: tasks/11_dotfiles.yml
+
+        - name: Dev setup
+          tags: dev
+          ansible.builtin.import_tasks: tasks/12_dev.yml

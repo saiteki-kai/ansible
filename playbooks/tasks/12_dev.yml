@@ -1,0 +1,13 @@
+---
+- name: NVM | Download script
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh
+    dest: "{{ lookup('env', 'HOME') }}/.nvm/nvm.sh"
+    mode: "0755"
+    force: true
+
+- name: NVM | Install
+  ansible.builtin.shell: >
+    PROFILE=/dev/null bash "{{ lookup('env', 'HOME') }}/.nvm/nvm.sh"
+  args:
+    creates: "{{ lookup('env', 'NVM_DIR') }}/nvm.sh"
