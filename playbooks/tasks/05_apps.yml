@@ -48,12 +48,12 @@
   ansible.builtin.apt:
     force_apt_get: true
     update_cache: true
-    deb: https://mega.nz/linux/repo/xUbuntu_23.10/amd64/megasync-xUbuntu_23.10_amd64.deb
+    deb: https://mega.nz/linux/repo/xUbuntu_24.04/amd64/megasync-xUbuntu_24.04_amd64.deb
 
 - name: Packages | Apt | Install megasync nautilus
   ansible.builtin.apt:
     force_apt_get: true
-    deb: https://mega.nz/linux/repo/xUbuntu_23.10/amd64/nautilus-megasync-xUbuntu_23.10_amd64.deb
+    deb: https://mega.nz/linux/repo/xUbuntu_24.04/amd64/nautilus-megasync-xUbuntu_24.04_amd64.deb
 
 - name: Packages | Apt | Add cryptomator ppa repository
   ansible.builtin.apt_repository:
