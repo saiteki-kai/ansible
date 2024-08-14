@@ -78,7 +78,10 @@
   ansible.builtin.apt:
     force_apt_get: true
     deb: "{{ obsidian_deb_url.stdout }}"
-# TODO:
-# - code
-# - onlyoffice
-# - anki
+
+- name: Packages | Apt | Install Visual Studio Code
+  tags: vscode
+  ansible.builtin.apt:
+    force_apt_get: true
+    update_cache: true
+    deb: https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64
