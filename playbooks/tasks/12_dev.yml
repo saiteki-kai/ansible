@@ -1,13 +1,25 @@
 ---
-- name: NVM | Download script
+- name: NVM | Download Script
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh
     dest: "{{ lookup('env', 'HOME') }}/.nvm/nvm.sh"
     mode: "0755"
     force: true
 
-- name: NVM | Install
+- name: NVM | Install (without profile modification)
   ansible.builtin.shell: >
     PROFILE=/dev/null bash "{{ lookup('env', 'HOME') }}/.nvm/nvm.sh"
   args:
     creates: "{{ lookup('env', 'NVM_DIR') }}/nvm.sh"
+
+- name: Rust | Download Script
+  ansible.builtin.get_url:
+    url: https://sh.rustup.rs
+    dest: /tmp/sh.rustup.rs
+    mode: "0755"
+
+- name: Rust | Install
+  ansible.builtin.shell: >
+    /tmp/sh.rustup.rs -y
+  args:
+    creates: "{{ lookup('env', 'HOME') }}/.cargo/bin/rustup"
