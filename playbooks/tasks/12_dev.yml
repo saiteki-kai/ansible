@@ -1,4 +1,10 @@
 ---
+- name: NVM | Create NVM directory
+  ansible.builtin.file:
+    path: "{{ lookup('env', 'HOME') }}/.nvm"
+    mode: "0755"
+    state: directory
+
 - name: NVM | Download Script
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh
@@ -9,8 +15,7 @@
 - name: NVM | Install (without profile modification)
   ansible.builtin.shell: >
     PROFILE=/dev/null bash "{{ lookup('env', 'HOME') }}/.nvm/nvm.sh"
-  args:
-    creates: "{{ lookup('env', 'NVM_DIR') }}/nvm.sh"
+  changed_when: true
 
 - name: Rust | Download Script
   ansible.builtin.get_url:
