@@ -1,5 +1,11 @@
 # TODO
 
+## Fixes
+
+- [ ] Fix the NVM installation
+- [ ] Add cryptomator gpg key
+- [ ] Better organize the playbook
+
 ## Softwares
 
 - [x] Fetch and install the latest vscode release
