@@ -1,0 +1,24 @@
+---
+- name: Update and upgrade packages
+  become: true
+  ansible.builtin.import_tasks: update_and_upgrade.yml
+
+- name: Core packages
+  become: true
+  ansible.builtin.import_tasks: core_packages.yml
+
+- name: Build Tools
+  become: true
+  ansible.builtin.import_tasks: build_tools.yml
+
+- name: Utility Tools
+  become: true
+  ansible.builtin.import_tasks: utility_tools.yml
+
+- name: Python packages
+  become: true
+  ansible.builtin.import_tasks: python_packages.yml
+
+- name: Fonts
+  become: true
+  ansible.builtin.import_tasks: fonts.yml

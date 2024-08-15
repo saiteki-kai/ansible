@@ -1,0 +1,16 @@
+---
+- name: Packages | Apt | Download brave keyring
+  ansible.builtin.get_url:
+    url: https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+    dest: /usr/share/keyrings/brave-browser-archive-keyring.gpg
+    mode: "0644"
+
+- name: Packages | Apt | Add brave repository
+  ansible.builtin.apt_repository:
+    repo: deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main
+
+- name: Packages | Apt | Install brave
+  ansible.builtin.apt:
+    force_apt_get: true
+    update_cache: true
+    name: brave-browser

@@ -1,0 +1,9 @@
+---
+- name: Gnome | Extensions | Install packages
+  ansible.builtin.apt:
+    package:
+      - gnome-tweaks
+      - gnome-shell-extensions
+      - gnome-shell-extension-manager
+      - chrome-gnome-shell
+      - dconf-editor

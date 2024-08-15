@@ -1,0 +1,15 @@
+---
+- name: Packages | Snap | Install loupe, spotify, telegram-desktop, firmware-updater
+  tags: snap
+  community.general.snap:
+    name:
+      - loupe
+      - spotify
+      - telegram-desktop
+      - firmware-updater
+
+- name: Packages | Snap | Remove firefox
+  tags: snap
+  community.general.snap:
+    state: absent
+    name: firefox

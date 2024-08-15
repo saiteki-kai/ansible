@@ -1,0 +1,5 @@
+---
+- name: Gnome | Terminal | Set kitty as default terminal
+  community.general.alternatives:
+    name: x-terminal-emulator
+    path: /usr/bin/kitty

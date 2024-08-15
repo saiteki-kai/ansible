@@ -1,0 +1,8 @@
+---
+- name: Packages | Install fonts
+  ansible.builtin.apt:
+    force_apt_get: true
+    package:
+      - fonts-firacode
+      - fonts-noto
+      - fonts-noto-cjk

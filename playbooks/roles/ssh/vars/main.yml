@@ -1,0 +1,4 @@
+---
+ssh_key: id_ed25519
+ssh_src_key: ./files/ssh_github/{{ ssh_key }}
+ssh_dest_key: "{{ lookup('env', 'HOME') ~ '/.ssh/' ~ ssh_key }}"

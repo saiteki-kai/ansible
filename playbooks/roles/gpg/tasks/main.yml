@@ -1,14 +1,21 @@
 ---
+- name: Include gpg variables
+  ansible.builtin.include_vars: vars/gpg_vars.yml
+
+- name: Include vault gpg variables
+  ansible.builtin.include_vars: vars/gpg_vault.yml
+
 - name: GPG | Create the temp directory for gpg keys
   ansible.builtin.file:
-    dest: "{{ dest_gpg_dir }}"
+    dest: "{{ gpg_dest_dir }}"
     mode: "0700"
     state: directory
 
 - name: GPG | Copy temporary gpg keys
+  no_log: true
   ansible.builtin.copy:
-    src: "{{ src_gpg_dir ~ '/' ~ item.src }}"
-    dest: "{{ dest_gpg_dir ~ '/' ~ item.dest }}"
+    src: "{{ gpg_src_dir ~ '/' ~ item.src }}"
+    dest: "{{ gpg_dest_dir ~ '/' ~ item.dest }}"
     mode: "{{ item.mode }}"
   with_items:
     - src: private.asc
@@ -19,28 +26,31 @@
       mode: "0644"
 
 - name: GPG | Import the gpg private key
+  no_log: true
   ansible.builtin.shell:
     cmd: |
       set -o pipefail
-      echo {{ gpg_passphrase }} | gpg --batch --yes --passphrase-fd 0 --import {{ dest_gpg_dir }}/private.asc
+      echo {{ gpg_passphrase }} | gpg --batch --yes --passphrase-fd 0 --import {{ gpg_dest_dir }}/private.asc
     executable: /bin/bash
   changed_when: true
 
 - name: GPG | Import the gpg public key
+  no_log: true
   ansible.builtin.shell:
     cmd: |
       set -o pipefail
-      echo {{ gpg_passphrase }} | gpg --batch --yes --passphrase-fd 0 --import {{ dest_gpg_dir }}/public.asc
+      echo {{ gpg_passphrase }} | gpg --batch --yes --passphrase-fd 0 --import {{ gpg_dest_dir }}/public.asc
     executable: /bin/bash
   changed_when: true
 
 - name: GPG | Remove the temporary gpg keys
   ansible.builtin.file:
-    path: "{{ dest_gpg_dir }}"
+    path: "{{ gpg_dest_dir }}"
     state: absent
   changed_when: true
 
 - name: GPG | Fix the trust level
+  no_log: true
   ansible.builtin.shell:
     cmd: |
       set -o pipefail

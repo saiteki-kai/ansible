@@ -4,66 +4,27 @@
   connection: local
   gather_facts: false
 
-  vars:
-    user: giuseppe
-
-    ssh_key: id_ed25519
-    src_ssh_key: ./files/ssh_github/{{ ssh_key }}
-    dest_ssh_key: "{{ lookup('env', 'HOME') ~ '/.ssh/' ~ ssh_key }}"
-
-    src_gpg_dir: ./files/gpg_github
-    dest_gpg_dir: "{{ lookup('env', 'HOME') ~ '/.gpg_tmp' }}"
-
-    dotfiles_repo: https://github.com/saiteki-kai/.dotfiles.git
-    dotfiles_repo_ssh: git@github.com:saiteki-kai/.dotfiles.git
-
-  vars_files:
-    - ./vars/gpg_vars.yml
-    - ./vars/gpg_vault.yml
+  pre_tasks:
+    - name: Register Current User
+      ansible.builtin.import_tasks: pre_tasks/register_user.yml
 
   tasks:
-    - name: System tasks
-      become: true
-      block:
-        - name: Install packages
-          ansible.builtin.import_tasks: tasks/01_packages.yml
-
-        - name: Setup firewall
-          ansible.builtin.import_tasks: tasks/02_ufw.yml
-
-        - name: Systemd settings
-          ansible.builtin.import_tasks: tasks/03_systemd.yml
-
-        - name: Install Gnome related packages
-          ansible.builtin.import_tasks: tasks/04_gnome.yml
-
-        - name: Install applications
-          ansible.builtin.import_tasks: tasks/05_apps.yml
-
-    - name: User tasks
-      become: true
-      become_user: "{{ user }}"
-      block:
-        - name: SSH keys
-          no_log: true
-          ansible.builtin.import_tasks: tasks/06_ssh.yml
-
-        - name: GPG keys
-          no_log: true
-          ansible.builtin.import_tasks: tasks/07_gpg.yml
-
-        - name: Git config
-          ansible.builtin.import_tasks: tasks/08_git.yml
-
-        - name: ZSH config
-          ansible.builtin.import_tasks: tasks/09_zsh.yml
-
-        - name: Install Neovim
-          ansible.builtin.import_tasks: tasks/10_nvim.yml
-
-        - name: Install dotfiles
-          ansible.builtin.import_tasks: tasks/11_dotfiles.yml
-
-        - name: Dev setup
-          tags: dev
-          ansible.builtin.import_tasks: tasks/12_dev.yml
+    - name: Include roles
+      ansible.builtin.include_role:
+        name: "{{ roles_item }}"
+      loop_control:
+        loop_var: roles_item
+      with_items:
+        - name: packages
+        - name: ufw
+        - name: systemd
+        - name: gnome
+        - name: apps
+        - name: ssh
+        - name: gpg
+        - name: git
+        - name: zsh
+        - name: neovim
+        - name: dotfiles
+        - name: nvm
+        - name: rust

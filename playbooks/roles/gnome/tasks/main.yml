@@ -1,0 +1,16 @@
+---
+- name: Terminal
+  ansible.builtin.import_tasks: terminal.yml
+
+- name: Extensions
+  ansible.builtin.import_tasks: extensions.yml
+
+- name: Nautilus
+  become: true
+  become_user: "{{ user }}"
+  ansible.builtin.import_tasks: nautilus.yml
+
+- name: Night Light
+  become: true
+  become_user: "{{ user }}"
+  ansible.builtin.import_tasks: night_light.yml

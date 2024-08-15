@@ -1,0 +1,6 @@
+---
+- name: Zsh
+  ansible.builtin.import_tasks: zsh.yml
+
+- name: Oh-My-Zsh
+  ansible.builtin.import_tasks: oh_my_zsh.yml

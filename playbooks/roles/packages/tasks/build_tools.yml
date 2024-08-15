@@ -1,0 +1,9 @@
+---
+- name: Packages | Install build tools
+  ansible.builtin.apt:
+    force_apt_get: true
+    package:
+      - build-essential
+      - ninja-build
+      - cmake
+      - gettext

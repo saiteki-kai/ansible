@@ -1,0 +1,5 @@
+---
+- name: Register Current User
+  ansible.builtin.set_fact:
+    user: "{{ lookup('env', 'USER') }}"
+  when: user is not defined

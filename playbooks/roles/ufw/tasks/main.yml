@@ -1,17 +1,17 @@
 ---
 - name: Firewall | Enable firewall
-  tags: minimal
+  become: true
   community.general.ufw:
     state: enabled
 
 - name: Firewall | Deny all incoming traffic
-  tags: minimal
+  become: true
   community.general.ufw:
     default: deny
     direction: incoming
 
 - name: Firewall | Allow all outgoing traffic
-  tags: minimal
+  become: true
   community.general.ufw:
     default: allow
     direction: outgoing

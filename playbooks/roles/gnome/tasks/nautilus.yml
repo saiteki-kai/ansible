@@ -1,0 +1,10 @@
+---
+- name: Gnome | Nautilus | Set default preferences
+  community.general.dconf:
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+  with_items:
+    - key: /org/gtk/gtk4/settings/file-chooser/sort-directories-first
+      value: "true"
+    - key: /org/gnome/nautilus/preferences/default-folder-viewer
+      value: "'list-view'"

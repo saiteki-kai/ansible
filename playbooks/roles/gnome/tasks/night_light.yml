@@ -1,0 +1,14 @@
+---
+- name: Gnome | Night Light | Set default preferences
+  community.general.dconf:
+    key: "{{ item.key }}"
+    value: "{{ item.value }}"
+  with_items:
+    - key: /org/gnome/settings-daemon/plugins/color/night-light-enabled
+      value: "true"
+    - key: /org/gnome/settings-daemon/plugins/color/night-light-temperature
+      value: uint32 3700
+    - key: /org/gnome/settings-daemon/plugins/color/night-light-schedule-from
+      value: "21"
+    - key: /org/gnome/settings-daemon/plugins/color/night-light-schedule-to
+      value: "6"

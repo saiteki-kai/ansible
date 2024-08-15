@@ -1,0 +1,3 @@
+---
+gpg_src_dir: ./files/gpg_github
+gpg_dest_dir: "{{ lookup('env', 'HOME') ~ '/.gpg_tmp' }}"

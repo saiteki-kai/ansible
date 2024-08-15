@@ -1,27 +1,29 @@
 ---
 - name: SSH | Check ssh directory
   ansible.builtin.file:
-    dest: "{{ dest_ssh_key | dirname }}"
+    dest: "{{ ssh_dest_key | dirname }}"
     mode: "0700"
     state: directory
 
 - name: SSH | Install the ssh keys
+  no_log: true
   ansible.builtin.copy:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     mode: "{{ item.mode }}"
   with_items:
-    - src: "{{ src_ssh_key }}"
-      dest: "{{ dest_ssh_key }}"
+    - src: "{{ ssh_src_key }}"
+      dest: "{{ ssh_dest_key }}"
       mode: "0600"
-    - src: "{{ src_ssh_key }}.pub"
-      dest: "{{ dest_ssh_key }}.pub"
+    - src: "{{ ssh_src_key }}.pub"
+      dest: "{{ ssh_dest_key }}.pub"
       mode: "0644"
 
 - name: SSH | Set authorized key took from file
+  no_log: true
   ansible.posix.authorized_key:
     user: "{{ user }}"
     state: present
-    key: "{{ lookup('file', dest_ssh_key ~ '.pub') }}"
+    key: "{{ lookup('file', ssh_dest_key ~ '.pub') }}"
   with_fileglob:
-    - "{{ dest_ssh_key | dirname }}/*.pub"
+    - "{{ ssh_dest_key | dirname }}/*.pub"

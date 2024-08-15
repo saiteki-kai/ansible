@@ -1,15 +1,18 @@
 ---
 - name: Services | Disable ModemManager service
+  become: true
   ansible.builtin.systemd_service:
     name: ModemManager.service
     enabled: false
 
 - name: Services | Disable NetworkManager-wait-online service
+  become: true
   ansible.builtin.systemd_service:
     name: NetworkManager-wait-online.service
     enabled: false
 
 - name: Systemd | Set swappiness to 10
+  become: true
   ansible.posix.sysctl:
     name: vm.swappiness
     value: "10"

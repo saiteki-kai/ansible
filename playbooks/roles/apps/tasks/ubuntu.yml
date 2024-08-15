@@ -1,0 +1,14 @@
+---
+- name: Packages | Apt | Install stacer, timeshift, vlc, krita
+  ansible.builtin.apt:
+    force_apt_get: true
+    name:
+      - stacer
+      - timeshift
+      - vlc
+      - krita
+
+- name: Packages | Apt | Remove firefox
+  ansible.builtin.apt:
+    state: absent
+    name: firefox

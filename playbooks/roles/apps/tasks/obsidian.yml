@@ -1,0 +1,14 @@
+---
+- name: Packages | Apt | Get latest obsidian release url # noqa: command-instead-of-module # noqa: risky-shell-pipe
+  ansible.builtin.shell: >
+    wget -q -O - https://api.github.com/repos/obsidianmd/obsidian-releases/releases/latest
+    | jq -r '.assets[]
+    | select(.name | contains ("deb"))
+    | .browser_download_url'
+  changed_when: false
+  register: obsidian_deb_url
+
+- name: Packages | Apt | Install obsidian
+  ansible.builtin.apt:
+    force_apt_get: true
+    deb: "{{ obsidian_deb_url.stdout }}"

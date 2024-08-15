@@ -1,0 +1,24 @@
+---
+- name: Packages | Install utility tools
+  tags: minimal
+  ansible.builtin.apt:
+    force_apt_get: true
+    package:
+      - git
+      - zsh
+      - curl
+      - wget
+      - xclip
+      - fzf
+      - ripgrep
+      - ncdu
+      - eza
+      - bat
+      - lm-sensors
+      - htop
+      - unzip
+      - neofetch
+      - nala
+      - kitty
+      - vim
+      - tmux
