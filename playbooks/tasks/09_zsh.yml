@@ -1,7 +1,9 @@
 ---
 - name: Zsh | Set zsh as default shell
+  become: true
+  become_user: root
   ansible.builtin.shell:
-    cmd: chsh -s $(which zsh)
+    cmd: chsh -s "$(which zsh)" "{{ user }}"
   changed_when: true
 
 - name: Oh-My-Zsh | Check if already installed
