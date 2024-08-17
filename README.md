@@ -19,11 +19,20 @@ git clone https://github.com/saiteki-kai/ansible.git
 cd ansible/
 ```
 
-Create a vault password file `~/.vault_pass` in the root directory or use the `--ask-vault-pass` flag to pass the vault password.
+Create a vault password file `.vault_pass` in the root directory and ensure it's only accessible by the current user:
+
+```bash
+sudo chown $USER:$USER .vault_pass
+sudo chmod 0600 .vault_pass
+```
+
+Alternatively, you can use the `--ask-vault-pass` flag to pass the vault password.
+
 Finally, run the install script:
 
 ```bash
-./install.sh
+./install.sh                   # or
+./install.sh --ask-vault-pass  # pass the vault password
 ```
 
 Some tasks have tags that can be used to filter the playbook. For example, `./install.sh --tags minimal` will only run the tasks tagged as `minimal`. Similarly, tags can also be used to exclude tasks with the `--skip-tags` option.
