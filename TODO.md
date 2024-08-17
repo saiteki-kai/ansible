@@ -4,7 +4,8 @@
 
 - [ ] Fix the NVM installation
 - [ ] Add cryptomator gpg key
-- [ ] Better organize the playbook
+- [x] Better organize the playbook
+- [x] Import variables using group_vars
 
 ## Softwares
 
