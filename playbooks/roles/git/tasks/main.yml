@@ -12,10 +12,11 @@
     value: saiteki-kai
 
 - name: Git | Check if gpg key is present
+  no_log: true
   ansible.builtin.shell:
     cmd: |
       set -o pipefail
-      gpg --list-keys | grep {{ gpg_key_id }}
+      gpg --list-keys | grep {{ gpg.key_id }}
     executable: /bin/bash
   register: key_present
   changed_when: false
@@ -31,5 +32,5 @@
   community.general.git_config:
     name: user.signingkey
     scope: global
-    value: "{{ gpg_key_id }}"
+    value: "{{ gpg.key_id }}"
   when: key_present

@@ -1,0 +1,15 @@
+---
+dotfiles:
+  repo: https://github.com/saiteki-kai/.dotfiles.git
+  repo_ssh: git@github.com:saiteki-kai/.dotfiles.git
+
+ssh:
+  src_key: ./files/ssh_github/{{ vault_ssh.key_id }}
+  dest_key: "{{ lookup('env', 'HOME') ~ '/.ssh/' ~ vault_ssh.key_id }}"
+
+gpg:
+  src_dir: ./files/gpg_github
+  dest_dir: "{{ lookup('env', 'HOME') ~ '/.gpg_tmp' }}"
+
+  key_id: "{{ vault_gpg.key_id }}"
+  passphrase: "{{ vault_gpg.passphrase }}"
