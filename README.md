@@ -4,20 +4,26 @@ This Ansible playbook simplifies and automates the setup and configuration of my
 
 The installation process includes core packages, utility tools like curl, fzf, eza, and bat, along with essential applications such as the web browser, VLC, Spotify, and Telegram. Additionally, it involves configuring of SSH and GPG keys that are encrypted with Ansible Vault, configuring Oh-My-Zsh, installing Neovim from source, and setting up my [dotfiles](https://github.com/saiteki-kai/.dotfiles). Specifically for gnome, it also setup gnome shell extensions, default dconf settings, and keybindings.
 
+## Prerequisites
+
+Before running the playbook, ensure you have performed a fresh installation of Ubuntu 24.04.
+
 ## Install
 
-Install ansible and git, then run the playbook:
+1\. Install ansible and git, then run the playbook:
 
 ```bash
 sudo apt install git ansible
 ```
 
-Clone the repository:
+2\. Clone the repository:
 
 ```bash
 git clone https://github.com/saiteki-kai/ansible.git
 cd ansible/
 ```
+
+3\. Setup the vault password:
 
 Create a vault password file `.vault_pass` in the root directory and ensure it's only accessible by the current user:
 
@@ -28,7 +34,7 @@ sudo chmod 0600 .vault_pass
 
 Alternatively, you can use the `--ask-vault-pass` flag to pass the vault password.
 
-Finally, run the install script:
+4\. Run the install script:
 
 ```bash
 ./install.sh                   # or
