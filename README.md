@@ -10,7 +10,7 @@ Before running the playbook, ensure you have performed a fresh installation of U
 
 ## Install
 
-1\. Install ansible and git, then run the playbook:
+1\. Install git and ansible:
 
 ```bash
 sudo apt install git ansible
