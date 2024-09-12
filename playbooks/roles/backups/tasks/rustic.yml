@@ -1,0 +1,4 @@
+---
+- name: Rustic | Install
+  community.general.cargo:
+    name: rustic-rs

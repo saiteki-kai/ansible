@@ -1,0 +1,22 @@
+- name: Rclone | Download Script
+  become: true
+  ansible.builtin.get_url:
+    url: https://rclone.org/install.sh
+    dest: /tmp/rclone-install.sh
+    mode: "0755"
+
+- name: Rclone | Install
+  become: true
+  ansible.builtin.command:
+    cmd: /tmp/rclone-install.sh
+  register: result
+  failed_when: result.rc not in [0, 3]
+  changed_when: result.rc == 0
+
+- name: Rclone | Configure Mega
+  become: true
+  become_user: "{{ user }}"
+  no_log: true
+  ansible.builtin.command:
+    cmd: rclone config create mega-backups mega user={{ vault_rclone.username }} pass={{ vault_rclone.password }}
+  changed_when: true

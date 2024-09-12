@@ -11,14 +11,6 @@
   become: true
   ansible.builtin.import_tasks: brave.yml
 
-- name: Mega
-  become: true
-  ansible.builtin.import_tasks: mega.yml
-
-# - name: Cryptomator
-#   become: true
-#   ansible.builtin.import_tasks: cryptomator.yml
-
 - name: Obsidian
   become: true
   ansible.builtin.import_tasks: obsidian.yml

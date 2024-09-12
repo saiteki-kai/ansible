@@ -1,0 +1,6 @@
+---
+- name: Rustic
+  ansible.builtin.import_tasks: rustic.yml
+
+- name: Rclone
+  ansible.builtin.import_tasks: rclone.yml

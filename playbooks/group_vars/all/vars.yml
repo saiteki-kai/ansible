@@ -14,3 +14,7 @@ gpg:
 
   key_id: "{{ vault_gpg.key_id }}"
   passphrase: "{{ vault_gpg.passphrase }}"
+
+rclone:
+  username: "{{ vault_rclone.username }}"
+  password: "{{ vault_rclone.password }}"

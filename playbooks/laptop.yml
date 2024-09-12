@@ -26,5 +26,6 @@
         - name: zsh
         - name: neovim
         - name: dotfiles
+        - name: backups
         - name: nvm
         - name: rust
