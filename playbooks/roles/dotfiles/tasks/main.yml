@@ -9,23 +9,19 @@
 - name: Dotfiles | Install dotfiles
   ansible.builtin.git:
     repo: "{{ dotfiles.repo }}"
-    dest: "{{ lookup('env', 'HOME') }}/.dotfiles"
+    dest: "{{ dotfiles.dot_dir }}"
     recursive: true
     update: true
     version: master
 
 - name: Dotfiles | Link dotfiles
   ansible.builtin.shell:
-    cmd: cd "{{ lookup('env', 'HOME') }}/.dotfiles" && stow --adopt {{ item.dir }}
+    cmd: cd "{{ dotfiles.dot_dir }}" && stow -v -R -t ~ {{ item.dir }}
   with_items:
     - dir: nvim
     - dir: zsh
     - dir: tmux
     - dir: kitty
     - dir: bin
-  changed_when: true
-
-- name: Dotfiles | Update the remote
-  ansible.builtin.shell:
-    cmd: cd ~/.dotfiles && git remote remove origin && git remote add origin {{ dotfiles.repo_ssh }}
+    - dir: rustic
   changed_when: true

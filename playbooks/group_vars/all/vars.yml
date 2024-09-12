@@ -2,6 +2,7 @@
 dotfiles:
   repo: https://github.com/saiteki-kai/.dotfiles.git
   repo_ssh: git@github.com:saiteki-kai/.dotfiles.git
+  dot_dir: "{{ lookup('env', 'DOT_DIR') }}"
 
 ssh:
   src_key: ./files/ssh_github/{{ vault_ssh.key_id }}
