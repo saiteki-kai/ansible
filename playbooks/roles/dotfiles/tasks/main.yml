@@ -6,6 +6,11 @@
     force_apt_get: true
     name: stow
 
+- name: Dotfiles | Check if dotfiles exist
+  ansible.builtin.stat:
+    path: "{{ dotfiles.dot_dir }}"
+  register: dir
+
 - name: Dotfiles | Install dotfiles
   ansible.builtin.git:
     repo: "{{ dotfiles.repo }}"
@@ -13,15 +18,10 @@
     recursive: true
     update: true
     version: master
+  when: not dir.stat.exists
 
 - name: Dotfiles | Link dotfiles
-  ansible.builtin.shell:
-    cmd: cd "{{ dotfiles.dot_dir }}" && stow -v -R -t ~ {{ item.dir }}
-  with_items:
-    - dir: nvim
-    - dir: zsh
-    - dir: tmux
-    - dir: kitty
-    - dir: bin
-    - dir: rustic
+  ansible.builtin.command:
+    chdir: "{{ dotfiles.dot_dir }}"
+    cmd: ./install.sh
   changed_when: true
